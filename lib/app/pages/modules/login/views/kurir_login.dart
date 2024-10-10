@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class MainLogin extends StatelessWidget {
+class KurirLogin extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,7 +42,7 @@ class MainLogin extends StatelessWidget {
             SizedBox(height: 10),
             Center(
               child: Text(
-                'Silahkan Login',
+                'Login Kurir',
                 style: TextStyle(fontSize: 18, color: Colors.grey[700]),
               ),
             ),
@@ -97,7 +97,7 @@ class MainLogin extends StatelessWidget {
             Center(
               child: ElevatedButton(
                 onPressed: () {
-                  Get.offNamed(Routes.HOMEADMIN);
+                  Get.offNamed(Routes.HOMEKURIR);
                 },
                 child: Text(
                   'Masuk',
@@ -113,40 +113,7 @@ class MainLogin extends StatelessWidget {
               ),
             ),
             SizedBox(height: 32),
-            // Bagian Belum Punya Akun dan Login Kurir
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'Belum Punya Akun?',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14,
-                  ),
-                ),
-                SizedBox(width: 4), // Mengurangi jarak antara teks dan tombol
-                TextButton(
-                  onPressed: () {
-                    Get.offNamed(Routes.REGISTER);
-                  },
-                  style: TextButton.styleFrom(
-                    padding: EdgeInsets.zero, // Hilangkan padding bawaan
-                    minimumSize: Size(0, 0), // Atur ukuran minimum agar tidak ada padding
-                    tapTargetSize: MaterialTapTargetSize.shrinkWrap, // Agar ukuran tombol mengikuti konten
-                  ),
-                  child: Text(
-                    'Daftar!',
-                    style: TextStyle(
-                      color: Colors.blueAccent,
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 16,),
-            Row(
+              Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
@@ -160,7 +127,7 @@ class MainLogin extends StatelessWidget {
                 TextButton(
                   onPressed: () {
                     // Arahkan ke halaman login kurir
-                    Get.offNamed(Routes.KURIRLOGIN);
+                    Get.offNamed(Routes.MAINLOGIN);
                   },
                   style: TextButton.styleFrom(
                     padding: EdgeInsets.zero, // Hilangkan padding bawaan
@@ -168,7 +135,7 @@ class MainLogin extends StatelessWidget {
                     tapTargetSize: MaterialTapTargetSize.shrinkWrap, // Agar ukuran tombol mengikuti konten
                   ),
                   child: Text(
-                    'Kurir',
+                    'User',
                     style: TextStyle(
                       color: Colors.blueAccent,
                       fontSize: 14,

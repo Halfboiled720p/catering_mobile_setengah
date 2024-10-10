@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 
 class HomeController extends GetxController {
   //TODO: Implement HomeController
+  var selectedMenu = ''.obs;
 
   final count = 0.obs;
   @override
@@ -21,3 +22,4 @@ class HomeController extends GetxController {
 
   void increment() => count.value++;
 }
+
