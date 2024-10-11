@@ -55,6 +55,14 @@ class HomeView extends GetView<HomeController> {
               ),
             ),
             SizedBox(width: 16),
+            IconButton(
+              icon: Icon(Icons.favorite, color: Colors.red), // Ikon favorit
+              onPressed: () {
+                // Menavigasi ke halaman Menu Favorit
+                Get.toNamed('/menu_favorit'); // Ganti dengan rute yang sesuai
+              },
+            ),
+            SizedBox(width: 16),
           ],
           bottom: PreferredSize(
             preferredSize: Size.fromHeight(170),
@@ -169,8 +177,14 @@ class HomeView extends GetView<HomeController> {
                         icon: Icon(Icons.search, color: Colors.black),
                         onPressed: () {
                           // Fungsi untuk tombol search
-                          Get.toNamed('/search');
+                          Get.toNamed('/SearchMenu');
                         },
+                      ),
+                      IconButton(
+                          icon: Icon(Icons.menu, color: Colors.black),
+                          onPressed: (){
+                            Get.toNamed('/menupilihan_view');
+                          },
                       ),
                     ],
                   ),
@@ -319,87 +333,90 @@ class HomeView extends GetView<HomeController> {
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
         floatingActionButton: FloatingActionButton(
+          backgroundColor: Colors.red,
           onPressed: () {
-            // Arahkan ke halaman keranjang
-            Get.toNamed('/cart');
+            // Tambahkan aksi saat FAB ditekan
+            Get.toNamed('/tambah');
           },
-          backgroundColor: Colors.red, // Ubah warna background tombol
-          child: Icon(Icons.shopping_cart, color: Colors.white), // Ikon keranjang
+          child: Icon(Icons.add),
         ),
       ),
     );
   }
 
-// Food Item Widget
-  Widget foodItem(String title, String description, String discount,
-      String code, String time, String price, String imagePath) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10),
+  Widget foodItem(
+      String name,
+      String desc,
+      String promo,
+      String code,
+      String duration,
+      String price,
+      String image) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 16),
+      padding: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(15),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.2),
+            spreadRadius: 1,
+            blurRadius: 5,
+            offset: Offset(0, 3),
+          ),
+        ],
+      ),
       child: Row(
         children: [
           ClipRRect(
-            borderRadius: BorderRadius.circular(10.0),
+            borderRadius: BorderRadius.circular(15),
             child: Image.asset(
-              imagePath,
-              width: 100,
-              height: 100,
+              image,
+              width: 70,
+              height: 70,
               fit: BoxFit.cover,
             ),
           ),
-          SizedBox(width: 15),
+          SizedBox(width: 10),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  title,
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                ),
-                SizedBox(
-                  height: 5,
-                ),
-                Text(description,
-                    style: TextStyle(color: Colors.grey[600], fontSize: 14)),
-                SizedBox(height: 5),
-                Row(
-                  children: [
-                    Icon(Icons.discount, size: 16, color: Colors.orange),
-                    SizedBox(width: 5),
-                    Text("$discount | $code", style: TextStyle(fontSize: 12)),
-                  ],
+                  name,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
                 ),
                 SizedBox(height: 5),
+                Text(desc),
+                SizedBox(height: 5),
+                Text(
+                  promo,
+                  style: TextStyle(color: Colors.red),
+                ),
+                SizedBox(height: 5),
+                Text(
+                  code,
+                  style: TextStyle(color: Colors.black54),
+                ),
+                SizedBox(height: 5),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Icon(Icons.star, size: 16, color: Colors.amber),
-                    // Star icon
-                    SizedBox(width: 5),
-                    Text(
-                      '4.5', // You can replace this with a dynamic rating value
-                      style: TextStyle(
-                          fontSize: 12,
-                          fontWeight:
-                              FontWeight.bold), // Change font style here
-                    ),
-                    SizedBox(width: 10),
-                    Icon(Icons.access_time, size: 16, color: Colors.grey),
-                    SizedBox(width: 5),
-                    Text(
-                      time,
-                      style: TextStyle(
-                          fontSize: 12,
-                          fontWeight:
-                              FontWeight.bold), // Change font style here
-                    ),
-                    SizedBox(width: 10),
-                    Icon(Icons.attach_money, size: 16, color: Colors.green),
-                    SizedBox(width: 5),
                     Text(
                       price,
                       style: TextStyle(
-                          fontSize: 12,
-                          fontWeight:
-                              FontWeight.bold), // Change font style here
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                        color: Colors.green,
+                      ),
+                    ),
+                    Text(
+                      duration,
+                      style: TextStyle(color: Colors.black54),
                     ),
                   ],
                 ),
@@ -433,55 +450,42 @@ class HomeView extends GetView<HomeController> {
     Icons.favorite,         // Ikon untuk Favorit
   ];
 
-  Widget _drawer() => Drawer(
-    backgroundColor: Color(0xFFECD7D7), // Mengubah warna background Drawer
-    child: Column(
-      children: [
-        // Menambahkan gambar logo di atas ListTile
-        Padding(
-          padding: const EdgeInsets.only(top: 20.0), // Mengurangi jarak logo dengan menu
-          child: Image.asset(
-            'assets/images/logo.png', // Path gambar logo
-            height: 100, // Memperbesar tinggi logo
-            width: 120, // Memperbesar lebar logo
+  Widget _drawer() {
+    return Drawer(
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: [
+          UserAccountsDrawerHeader(
+            accountName: Text('User Name'),
+            accountEmail: Text('user@example.com'),
+            currentAccountPicture: CircleAvatar(
+              backgroundColor: Colors.white,
+              child: Text(
+                'U',
+                style: TextStyle(fontSize: 40.0, color: Colors.black),
+              ),
+            ),
           ),
-        ),
-        Divider(),
-        Expanded(
-          child: ListView.builder(
-            itemCount: _menuItems.length,
-            itemBuilder: (context, index) {
-              // Cek apakah rute saat ini sama dengan rute item yang ditekan
-              bool isActive = Get.currentRoute == _menuRoutes[index];
-
-              return ListTile(
-                leading: Icon(
-                  _menuIcons[index], // Menambahkan ikon untuk setiap item
-                  color: isActive ? Color(0xFFECD7D7) : Colors.black, // Ubah warna ikon sesuai status aktif
-                ),
-                onTap: () {
-                  if (!isActive) {
-                    _scaffoldKey.currentState?.openEndDrawer();
-                    Get.toNamed(_menuRoutes[index]); // Navigasi ke halaman sesuai item
-                  } else {
-                    _scaffoldKey.currentState?.openEndDrawer();
-                    Navigator.of(context).pop(); // Menutup Drawer jika sudah di halaman yang sama
-                  }
-                },
-                title: Text(
-                  _menuItems[index],
-                  style: TextStyle(
-                    color: isActive ? Color(0xFFECD7D7) : Colors.black, // Warna teks berbeda saat aktif
-                    fontWeight: isActive ? FontWeight.w900 : FontWeight.bold, // Tebal font lebih besar saat aktif
-                    fontSize: 16, // Ukuran font tetap
-                  ),
-                ),
-                tileColor: isActive ? Color(0xFFFF3131) : null, // Latar belakang berbeda saat aktif
-              );
+          ListTile(
+            title: Text('Home'),
+            onTap: () {
+              Get.toNamed('/home');
             },
           ),
-        ),
-      ],
-    ),
-  );
+          ListTile(
+            title: Text('Menu Favorit'),
+            onTap: () {
+              Get.toNamed('/menu_favorit'); // Menavigasi ke menu favorit
+            },
+          ),
+          ListTile(
+            title: Text('Logout'),
+            onTap: () {
+              // Fungsi untuk logout
+            },
+          ),
+        ],
+      ),
+    );
+  }
 }

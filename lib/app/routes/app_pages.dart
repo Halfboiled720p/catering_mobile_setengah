@@ -9,6 +9,10 @@ import 'package:get/get.dart';
 import '../pages/modules/home/bindings/home_binding.dart';
 import '../pages/modules/home/views/home_view.dart';
 import '../pages/modules/register/views/register.dart';
+import '../pages/modules/menu_favorit/Views/menu_favorit.dart';
+import '../pages/modules/search_menu/views/SearchMenu.dart';
+import '../pages/modules/menu_pilihan/bindings/menupilihan_binding.dart';
+import '../pages/modules/menu_pilihan/views/menupilihan_view.dart';
 
 part 'app_routes.dart';
 
@@ -43,5 +47,18 @@ class AppPages {
       page: () => HomeView(),
       binding: HomeBinding(),
     ),
+    GetPage(
+        name: _Paths.MENUFAVORIT,
+        page: () => menu_favorit(),
+    ),
+    GetPage(
+        name: _Paths.SEARCHMENU,
+        page: () => SearchMenu(),
+    ),
+    GetPage(
+        name: _Paths.MENUPILIHAN,
+        page: () => menupilihan_view(title: 'Menu Pilihan',),
+        binding: menupilihan_binding(),
+    )
   ];
 }

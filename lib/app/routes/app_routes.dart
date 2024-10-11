@@ -9,6 +9,9 @@ abstract class Routes {
   static const MAINLOGIN = _Paths.MAINLOGIN;
   static const KURIRLOGIN = _Paths.KURIRLOGIN;
   static const REGISTER = _Paths.REGISTER ;
+  static const MENUFAVORIT = _Paths.MENUFAVORIT;
+  static const SEARCHMENU = _Paths.SEARCHMENU;
+  static const MENUPILIHAN = _Paths.MENUPILIHAN;
 
 }
 
@@ -20,4 +23,7 @@ abstract class _Paths {
   static const HOMEADMIN = '/home-admin';
   static const HOMEKURIR = '/home-kurir';
   static const REGISTER = '/register';
+  static const MENUFAVORIT = '/menu_favorit';
+  static const SEARCHMENU = '/SearchMenu';
+  static const MENUPILIHAN = '/menu_pilihan';
 }
